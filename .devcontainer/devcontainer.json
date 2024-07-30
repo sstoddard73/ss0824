@@ -1,0 +1,37 @@
+{
+	// Name of the container.
+	"name": "ss0824",
+
+	// Language and versions.
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "none",
+			"installMaven": "true",
+			"installGradle": "false"
+		},
+		"ghcr.io/devcontainers-contrib/features/ant-sdkman:2": {
+			"version": "latest",
+			"jdkVersion": "latest",
+			"jdkDistro": "ms"
+		}
+	},
+
+	// Tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+				"vscjava.vscode-java-pack"
+			]
+		}
+	},
+
+	// Run these commands after the container is created.
+	"postCreateCommand": "echo \"See the README.md file to get started.\""
+
+	// "forwardPorts": [],
+	// "postCreateCommand": "java -version",
+
+	// Uncomment to connect as root. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
