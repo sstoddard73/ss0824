@@ -11,9 +11,16 @@ class Rental {
         System.out.print(request.toString());
 
 
-        // Test the tool class.
-        Tool tool = new Tool("TOOL", "type", "brand", 2353, true, false, true);
+
+
+        // Test the Tool class.
+        Tool tool = new Tool("JAKR", "Jackhammer", "Ridgid");
         System.out.print("\n");
         System.out.print(tool.toString());
+
+        // Test the PriceRules class.
+        PriceRules priceRules = new PriceRules("Jackhammer", 2353, true, false, true);
+        System.out.print("\n");
+        System.out.print(priceRules.toString());
     }
 };
