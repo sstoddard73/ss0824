@@ -1,4 +1,4 @@
-class RentalRequest
+class CheckoutRequest
 {
     // Data fields.
 
@@ -9,11 +9,11 @@ class RentalRequest
 
     // Constructors.
 
-    public RentalRequest() {
-        this.toolCode = "";
-        this.checkoutDate = "";
-        this.numDays = 0;
-        this.discountPercentage = 0;
+    public CheckoutRequest() {
+        toolCode = "";
+        checkoutDate = "";
+        numDays = 0;
+        discountPercentage = 0;
     }
 
     // Methods to read in data from other sources.
@@ -102,12 +102,14 @@ class RentalRequest
         this.discountPercentage = discountPercentage;
     }
 
-    // Output this object.
+    // Serialize/stringify methods.
 
-    public void display() {
-        System.out.printf("               Tool: %s\n", toolCode);
-        System.out.printf("      Checkout Date: %s\n", checkoutDate);
-        System.out.printf("     Number of Days: %d\n", numDays);
-        System.out.printf("Discount Percentage: %d\n", discountPercentage);
+    @Override
+    public String toString() {
+        String formatString = "               Tool: %s\n"
+                            + "      Checkout Date: %s\n"
+                            + "     Number of Days: %d\n"
+                            + "Discount Percentage: %d\n";
+        return formatString.formatted(toolCode, checkoutDate, numDays, discountPercentage);
     }
 };
