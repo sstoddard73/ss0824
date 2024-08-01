@@ -22,5 +22,14 @@ class Rental {
         PriceRules priceRules = new PriceRules("Jackhammer", 2353, true, false, true);
         System.out.print("\n");
         System.out.print(priceRules.toString());
+
+        // Test the registries.
+        System.out.println("\ninfo about tool JAKR:\n");
+        ToolRegistry toolRegistry = ToolRegistry.getInstance();
+        System.out.print(toolRegistry.getToolByCode("JAKR").toString());
+    
+        System.out.println("\ninfo about tool type Jackhammer:\n");
+        PriceRegistry priceRegistry = PriceRegistry.getInstance();
+        System.out.print(priceRegistry.getPriceRulesForToolType("Jackhammer").toString());
     }
 };
