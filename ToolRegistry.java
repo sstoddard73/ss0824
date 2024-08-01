@@ -1,17 +1,6 @@
-public class ToolRegistry
+public enum ToolRegistry
 {
-    // Singleton.
-
-    private static ToolRegistry instance;
-    private ToolRegistry() {}
-
-    // (This is not thread-safe; add "synchronized" and double-locking if needed, but may be slower if not.)
-    public static ToolRegistry getInstance() {
-        if (instance == null) {
-            instance = new ToolRegistry();
-        }
-        return instance;
-    }
+    INSTANCE;
 
     // Data fields and constructors.
 
@@ -31,10 +20,5 @@ public class ToolRegistry
             }
         }
         throw new RuntimeException("no such tool code");
-    }
-
-    @Override
-    public String toString() {
-        return "";
     }
 };

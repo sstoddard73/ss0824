@@ -1,17 +1,6 @@
-public class PriceRegistry
+public enum PriceRegistry
 {
-    // Singleton.
-
-    private static PriceRegistry instance;
-    private PriceRegistry() {}
-
-    // (This is not thread-safe; add "synchronized" and double-locking if needed, but may be slower if not.)
-    public static PriceRegistry getInstance() {
-        if (instance == null) {
-            instance = new PriceRegistry();
-        }
-        return instance;
-    }
+    INSTANCE;
 
     // Data fields and constructors.
 
@@ -30,10 +19,5 @@ public class PriceRegistry
             }
         }
         throw new RuntimeException("no such tool type");
-    }
-
-    @Override
-    public String toString() {
-        return "";
     }
 };

@@ -25,11 +25,11 @@ class Rental {
 
         // Test the registries.
         System.out.println("\ninfo about tool JAKR:\n");
-        ToolRegistry toolRegistry = ToolRegistry.getInstance();
+        ToolRegistry toolRegistry = ToolRegistry.INSTANCE;
         System.out.print(toolRegistry.getToolByCode("JAKR").toString());
     
         System.out.println("\ninfo about tool type Jackhammer:\n");
-        PriceRegistry priceRegistry = PriceRegistry.getInstance();
+        PriceRegistry priceRegistry = PriceRegistry.INSTANCE;
         System.out.print(priceRegistry.getPriceRulesForToolType("Jackhammer").toString());
     }
 };
