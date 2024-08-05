@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.time.LocalDate;
 
 class Rental {
     public static void main(String []argv) {
@@ -31,5 +32,9 @@ class Rental {
         System.out.println("\ninfo about tool type Jackhammer:\n");
         PriceRegistry priceRegistry = PriceRegistry.INSTANCE;
         System.out.print(priceRegistry.getPriceRulesForToolType("Jackhammer").toString());
+
+        DayCounter dc = new DayCounter();
+        dc.countDays(LocalDate.of(2024, 8, 5), 7);
+        System.out.printf("weekdays = %d, weekend = %d, holidays = %d\n", dc.getNumWeekdays(), dc.getNumWeekendDays(), dc.getNumHolidays());
     }
 };
