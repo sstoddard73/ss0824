@@ -1,4 +1,8 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 class RentalAgreement
 {
@@ -10,7 +14,7 @@ class RentalAgreement
     private LocalDate checkoutDate;
     private LocalDate dueDate;
     private int numChargeDays;
-    private int prediscountCharge;   // whole number of cents, to avoid floating point rounding errors
+    private int preDiscountCharge;   // whole number of cents, to avoid floating point rounding errors
     private int discountPercent;     // percentage from 0-100
     private int discountAmount;      // whole number of cents, to avoid floating point rounding errors
     private int finalCharge;         // whole number of cents, to avoid floating point rounding errors
@@ -33,48 +37,57 @@ class RentalAgreement
 
         // Calculate the prices.
         numChargeDays = numRentalDays;   // TODO: not the real number!  Need to consider free weekend days and holidays based on tool type.
-        prediscountCharge = priceRules.getDailyCharge() * numChargeDays;
+        preDiscountCharge = priceRules.getDailyCharge() * numChargeDays;
         discountPercent = request.getDiscountPercentage();
     
         float discount = ((float)(discountPercent)) / 100f;
-        discountAmount = Math.round(discount * (float)prediscountCharge);
+        discountAmount = Math.round(discount * (float)preDiscountCharge);
 
-        finalCharge = prediscountCharge - discountAmount;
+        finalCharge = preDiscountCharge - discountAmount;
     }
 
     // Serialize/stringify methods.
 
     @Override
     public String toString() {
+        // Format the currency values.
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+        String dailyChargeString = currencyFormatter.format(.01f * (float)priceRules.getDailyCharge());
+        String preDiscountChargeString = currencyFormatter.format(.01f * (float)preDiscountCharge);
+        String discountAmountString = currencyFormatter.format(.01f * (float)discountAmount);
+        String finalChargeString = currencyFormatter.format(.01f * (float)finalCharge);
+
+        // Format the dates.
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yy");
+        String checkoutDateString = checkoutDate.format(dateFormatter);
+        String dueDateString = dueDate.format(dateFormatter);
+
+        // Display the data.
         String formatString = "          Tool Code: %s\n"
                             + "          Tool Type: %s\n"
                             + "         Tool Brand: %s\n"
                             + "        Rental Days: %d\n"
                             + "      Checkout Date: %s\n"
                             + "           Due Date: %s\n"
-                            + "Daily Rental Charge: %d.%02d\n"
+                            + "Daily Rental Charge: %s\n"
                             + "        Charge Days: %d\n"
-                            + "Pre-Discount Charge: %d.%02d\n"
+                            + "Pre-Discount Charge: %s\n"
                             + "   Discount Percent: %d%%\n"
-                            + "    Discount Amount: %d.%02d\n"
-                            + "       Final Charge: %d.%02d\n";
+                            + "    Discount Amount: %s\n"
+                            + "       Final Charge: %s\n";
         return formatString.formatted(
             tool.getToolCode(),
             tool.getToolType(),
             tool.getToolBrand(),
             numRentalDays,
-            checkoutDate,
-            dueDate,
-            priceRules.getDailyCharge() / 100,
-            priceRules.getDailyCharge() % 100,
+            checkoutDateString,
+            dueDateString,
+            dailyChargeString,
             numChargeDays,
-            prediscountCharge / 100,
-            prediscountCharge % 100,
+            preDiscountChargeString,
             discountPercent,
-            discountAmount / 100,
-            discountAmount % 100,
-            finalCharge / 100,
-            finalCharge % 100
+            discountAmountString,
+            finalChargeString
         );
     }
 };

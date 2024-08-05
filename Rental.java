@@ -8,7 +8,7 @@ class Rental {
         request.setCheckoutDate(LocalDate.now());
         request.setDiscountPercentage(5);
         request.setToolCode("JAKR");
-        request.setNumDays(7);
+        request.setNumDays(777);
 
         // Create a rental agreement.
         RentalAgreement agreement = new RentalAgreement(request);
@@ -22,7 +22,7 @@ class Rental {
 
         // Test the day counter.
         DayCounter dc = new DayCounter();
-        dc.countDays(LocalDate.of(2024, 8, 5), 7);
+        dc.countDays(LocalDate.of(2024, 9, 1), 3);
         System.out.printf("\nweekdays = %d, weekend = %d, holidays = %d\n", dc.getNumWeekdays(), dc.getNumWeekendDays(), dc.getNumHolidays());
     }
 };

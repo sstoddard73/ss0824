@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.DayOfWeek;
+import java.time.Month;
 
 class DayCounter
 {
@@ -57,9 +58,9 @@ class DayCounter
      */
     public void countDay(LocalDate date) {
         // Is this a holiday?  If so, don't bother to do the weekend vs. weekday check.
-        
-        // Is this a weekend day or a weekday?
-        if (isWeekendDay(date)) {
+        if (isHoliday(date)) {
+            numHolidays++;
+        } else if (isWeekendDay(date)) {
             numWeekendDays++;
         } else {
             numWeekdays++;
@@ -74,6 +75,52 @@ class DayCounter
     private boolean isWeekendDay(LocalDate date) {
         DayOfWeek dow = date.getDayOfWeek();
         return dow == DayOfWeek.SATURDAY || dow == DayOfWeek.SUNDAY;
+    }
+
+    /**
+     * Checks to see if the given date is a holiday.
+     * Holidays are:
+     *    - July 4 (or nearest weekday if it falls on a weekend day)
+     *    - First Monday in September
+     * @param date
+     * @return a boolean representing whether or not the given date is a holiday
+     */
+    private boolean isHoliday(LocalDate date) {
+        // This is going to be ugly code.
+        // Generally I would not want to hard-code the holiday rules here, but it feels like overkill
+        // to develop a generic custom holiday class for this project.  In a project designed to be
+        // more scalable, I would have a Holiday class that allows you to specify the rules
+        // (e.g., Nth day of week in the month or Nth day in the month; boolean for nearest weekday, etc)
+        // and a "holiday calculator" class that allows the calling code to set the holidays, then check
+        // date(s) against it.
+
+        // Start checking holidays.
+        // We will return true if the date lands on any holiday; otherwise we will keep
+        // checking until we run out of holidays.
+        DayOfWeek dow = date.getDayOfWeek();
+
+        // See if this is the 4th of July or nearest weekday.
+        // The three possibilities:
+        //    - 3rd of July on a Friday
+        //    - 4th of July on a weekday
+        //    - 5th of July on a Monday
+        if (date.getMonth() == Month.JULY) {
+            if (!isWeekendDay(date) && date.getDayOfMonth() == 4) {
+                return true;
+            } else if (dow == DayOfWeek.FRIDAY && date.getDayOfMonth() == 3) {
+                return true;
+            } else if (dow == DayOfWeek.MONDAY && date.getDayOfMonth() == 5) {
+                return true;
+            }
+        }
+
+        // See if this is the first Monday in September.
+        if (date.getMonth() == Month.SEPTEMBER && dow == DayOfWeek.MONDAY && date.getDayOfMonth() <= 7) {
+            return true;
+        }
+
+        // All done checking for holidays, so if we got this far it is not a holiday.
+        return false;
     }
 
     // Getters and setters.
