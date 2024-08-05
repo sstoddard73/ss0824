@@ -20,6 +20,12 @@ class Tool
         setToolBrand(toolBrand);
     }
 
+    public Tool(Tool tool) {
+        setToolCode(tool.getToolCode());
+        setToolType(tool.getToolType());
+        setToolBrand(tool.getToolBrand());
+    }
+
     // Getters and setters.
 
     public String getToolCode() {

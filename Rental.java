@@ -5,36 +5,24 @@ class Rental {
     public static void main(String []argv) {
         // Create and populate a checkout request.
         CheckoutRequest request = new CheckoutRequest();
-        request.populateFromCommandLine(argv);
-        //request.populateFromInput();
+        request.setCheckoutDate(LocalDate.now());
+        request.setDiscountPercentage(5);
+        request.setToolCode("JAKR");
+        request.setNumDays(7);
 
+        // Create a rental agreement.
+        RentalAgreement agreement = new RentalAgreement(request);
+    
         // Display the request.
         System.out.print(request.toString());
 
+        // Display the agreement.
+        System.out.println("");
+        System.out.print(agreement.toString());
 
-
-
-        // Test the Tool class.
-        Tool tool = new Tool("JAKR", "Jackhammer", "Ridgid");
-        System.out.print("\n");
-        System.out.print(tool.toString());
-
-        // Test the PriceRules class.
-        PriceRules priceRules = new PriceRules("Jackhammer", 2353, true, false, true);
-        System.out.print("\n");
-        System.out.print(priceRules.toString());
-
-        // Test the registries.
-        System.out.println("\ninfo about tool JAKR:\n");
-        ToolRegistry toolRegistry = ToolRegistry.INSTANCE;
-        System.out.print(toolRegistry.getToolByCode("JAKR").toString());
-    
-        System.out.println("\ninfo about tool type Jackhammer:\n");
-        PriceRegistry priceRegistry = PriceRegistry.INSTANCE;
-        System.out.print(priceRegistry.getPriceRulesForToolType("Jackhammer").toString());
-
+        // Test the day counter.
         DayCounter dc = new DayCounter();
         dc.countDays(LocalDate.of(2024, 8, 5), 7);
-        System.out.printf("weekdays = %d, weekend = %d, holidays = %d\n", dc.getNumWeekdays(), dc.getNumWeekendDays(), dc.getNumHolidays());
+        System.out.printf("\nweekdays = %d, weekend = %d, holidays = %d\n", dc.getNumWeekdays(), dc.getNumWeekendDays(), dc.getNumHolidays());
     }
 };

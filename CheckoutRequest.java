@@ -1,9 +1,11 @@
+import java.time.LocalDate;
+
 class CheckoutRequest
 {
     // Data fields.
 
     private String toolCode;
-    private String checkoutDate;
+    private LocalDate checkoutDate;
     private int numDays;
     private int discountPercentage;
 
@@ -11,61 +13,9 @@ class CheckoutRequest
 
     public CheckoutRequest() {
         toolCode = "";
-        checkoutDate = "";
+        checkoutDate = LocalDate.now();
         numDays = 0;
         discountPercentage = 0;
-    }
-
-    // Methods to read in data from other sources.
-
-    public void populateFromCommandLine(String []argv) {
-        final int toolCodeIndex = 0;
-        final int checkoutDateIndex = 1;
-        final int numDaysIndex = 2;
-        final int discountPercentageIndex = 3;
-        final int maxArgumentsToConsider = 4;
-
-        // Don't look at more arguments than is useful.
-        int argumentsToConsider = Math.min(argv.length, maxArgumentsToConsider);
-
-        // Look at the arguments and populate this object's data members accordingly.
-        for (int i = 0; i < argumentsToConsider; i++) {
-            switch (i) {
-                case toolCodeIndex:
-                    this.setToolCode(argv[i]);
-                    break;
-
-                case checkoutDateIndex:
-                    this.setCheckoutDate(argv[i]);
-                    break;
-
-                case numDaysIndex:
-                    int numDays = 0;
-                    try {
-                        numDays = Integer.parseInt(argv[i]);
-                    } catch (NumberFormatException e) {
-                        System.out.printf("Error: Invalid number of days: %s\n", argv[i]);
-                        break;
-                    }
-                    this.setNumDays(numDays);
-                    break;
-
-                case discountPercentageIndex:
-                    int discountPercentage = 0;
-                    try {
-                        discountPercentage = Integer.parseInt(argv[i]);
-                    } catch (NumberFormatException e) {
-                        System.out.printf("Error: Invalid discount percentage: %s\n", argv[i]);
-                        break;
-                    }
-                    this.setDiscountPercentage(discountPercentage);
-                    break;
-
-                default:
-                    // optimization: break out of not just the switch but the for loop as well
-                    break;
-            }
-        }
     }
 
     // Getters and setters.
@@ -78,11 +28,11 @@ class CheckoutRequest
         this.toolCode = toolCode;
     }
 
-    public String getCheckoutDate() {
+    public LocalDate getCheckoutDate() {
         return checkoutDate;
     }
 
-    public void setCheckoutDate(String checkoutDate) {
+    public void setCheckoutDate(LocalDate checkoutDate) {
         this.checkoutDate = checkoutDate;
     }
 
@@ -100,6 +50,12 @@ class CheckoutRequest
 
     public void setDiscountPercentage(int discountPercentage) {
         this.discountPercentage = discountPercentage;
+    }
+
+    // Getter-like methods to return data we can calculate.
+
+    public LocalDate getDueDate() {
+        return checkoutDate.plusDays(numDays);
     }
 
     // Serialize/stringify methods.

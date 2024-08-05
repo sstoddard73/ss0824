@@ -26,6 +26,14 @@ class PriceRules
         setHolidayCharge(holidayCharge);
     }
 
+    public PriceRules(PriceRules rules) {
+        setToolType(rules.toolType);
+        setDailyCharge(rules.dailyCharge);
+        setWeekdayCharge(rules.weekdayCharge);
+        setWeekendCharge(rules.weekendCharge);
+        setHolidayCharge(rules.holidayCharge);
+    }
+
     // Getters and setters.
 
     public String getToolType() {

@@ -15,7 +15,7 @@ public enum PriceRegistry
     public PriceRules getPriceRulesForToolType(String toolType) {
         for (int i = 0; i < priceRegistry.length; i++) {
             if (toolType == priceRegistry[i].getToolType()) {
-                return priceRegistry[i];
+                return new PriceRules(priceRegistry[i]);
             }
         }
         throw new RuntimeException("no such tool type");
