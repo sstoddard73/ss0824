@@ -1,6 +1,9 @@
 import java.util.Scanner;
 import java.time.LocalDate;
 
+/**
+ * Temporary test harness for this project; only need this until JUnit tests are established.
+ */
 class Rental {
     public static void main(String []argv) {
         // Create and populate a checkout request.
