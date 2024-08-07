@@ -1,3 +1,6 @@
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  * PriceRules is a POJO representing a tool type and the pricing rules that apply to it.
  * The supported pricing rules are simple:  a single daily charge amount is supported,
@@ -138,7 +141,9 @@ class PriceRules {
     @Override
     public String toString() {
         // Preformat some of the values.
-        String dailyChargeString = "$%d.%02d".formatted(dailyCharge / 100, dailyCharge % 100);
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);     // force $ rather than using current locale's currency
+        String dailyChargeString = currencyFormatter.format(.01f * (float)dailyCharge);   // multiply by .01f to convert cents to decimal dollars
+
         String weekdayString = weekdayCharge ? "yes" : "no";
         String weekendString = weekendCharge ? "yes" : "no";
         String holidayString = holidayCharge ? "yes" : "no";

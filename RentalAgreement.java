@@ -67,7 +67,7 @@ class RentalAgreement {
     @Override
     public String toString() {
         // Format the currency values.
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);                   // force $ rather than using current locale
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);                   // force $ rather than using current locale's currency
         String dailyChargeString = currencyFormatter.format(.01f * (float)priceRules.getDailyCharge()); // multiply by .01f to convert cents to decimal dollars
         String preDiscountChargeString = currencyFormatter.format(.01f * (float)preDiscountCharge);     // multiply by .01f to convert cents to decimal dollars
         String discountAmountString = currencyFormatter.format(.01f * (float)discountAmount);           // multiply by .01f to convert cents to decimal dollars
