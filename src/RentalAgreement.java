@@ -46,8 +46,12 @@ class RentalAgreement {
         checkoutDate = request.getCheckoutDate();
         dueDate = request.getDueDate();
 
+        // Calculate the number of charge days.
+        DayCounter dc = new DayCounter();
+        dc.countDays(checkoutDate, numRentalDays);
+        numChargeDays = dc.getChargeDays(priceRules);
+
         // Calculate the regular price, prior to any discounts.
-        numChargeDays = numRentalDays;   // TODO: not the real number!  Need to consider free weekend days and holidays based on tool type.
         preDiscountCharge = priceRules.getDailyCharge() * numChargeDays;
 
         // Calculate the discount amount.
@@ -57,6 +61,102 @@ class RentalAgreement {
 
         // Calculate the discounted price.
         finalCharge = preDiscountCharge - discountAmount;
+    }
+
+    /**
+     * Get the tool code.
+     * @return the tool code string
+     */
+    public String getToolCode() {
+        return tool.getToolCode();
+    }
+
+    /**
+     * Get the tool type.
+     * @return the tool type string
+     */
+    public String getToolType() {
+        return tool.getToolType();
+    }
+
+    /**
+     * Get the tool brand.
+     * @return the tool brand string
+     */
+    public String getToolBrand() {
+        return tool.getToolBrand();
+    }
+
+    /**
+     * Get the number of rental days.
+     * @return the number of rental days
+     */
+    public int getNumRentalDays() {
+        return numRentalDays;
+    }
+
+    /**
+     * Get the checkout date.
+     * @return the checkout date
+     */
+    public LocalDate getCheckoutDate() {
+        return checkoutDate;
+    }
+
+    /**
+     * Get the due date.
+     * @return the due date
+     */
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    /**
+     * Get the daily charge.
+     * @return the daily charge amount (as a whole number of cents)
+     */
+    public int getDailyCharge() {
+        return priceRules.getDailyCharge();
+    }
+
+    /**
+     * Get the number of charge days.
+     * @return the number of charge days
+     */
+    public int getNumChargeDays() {
+        return numChargeDays;
+    }
+
+    /**
+     * Get the pre-discount charge.
+     * @return the pre-discount charge amount (as a whole number of cents)
+     */
+    public int getPreDiscountCharge() {
+        return preDiscountCharge;
+    }
+
+    /**
+     * Get the discount percent.
+     * @return the discount percent (as an integer between 0 and 100)
+     */
+    public int getDiscountPercent() {
+        return discountPercent;
+    }
+
+    /**
+     * Get the discount amount.
+     * @return the amount of the discount (as a whole number of cents)
+     */
+    public int getDiscountAmount() {
+        return discountAmount;
+    }
+
+    /**
+     * Get the final charge.
+     * @return the final charge amount (as a whole number of cents)
+     */
+    public int getFinalCharge() {
+        return finalCharge;
     }
 
     /**

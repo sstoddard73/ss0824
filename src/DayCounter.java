@@ -84,6 +84,28 @@ class DayCounter {
     }
 
     /**
+     * Gets the number of charge days based on days this object has counted previously
+     * and the given price rules.
+     * @param priceRules
+     * @return integer number of charge days
+     */
+    public int getChargeDays(PriceRules priceRules) {
+        int chargeDays = 0;
+
+        if (priceRules.getWeekdayCharge()) {
+            chargeDays += numWeekdays;
+        }
+        if (priceRules.getWeekendCharge()) {
+            chargeDays += numWeekendDays;
+        }
+        if (priceRules.getHolidayCharge()) {
+            chargeDays += numHolidays;
+        }
+
+        return chargeDays;
+    }
+
+    /**
      * Check to see if the given date is a weekend day or a weekday.
      * @param date
      * @return a boolean representing whether or not the given date is a weekend day
