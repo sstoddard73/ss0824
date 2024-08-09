@@ -43,6 +43,8 @@ public class DayCounterTest {
 
     @Test
     public void DayCounter_CountChargeDays() {
+        // Since we'll be adding up the day type counts in different combinations,
+        // use test numbers where every distinct combination adds up to a unique total.
         DayCounter dc = new DayCounter(1,2,4);
     
         PriceRules pr = new PriceRules("TEST", 1, false, false, false);
