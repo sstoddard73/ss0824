@@ -86,6 +86,17 @@ class DayCounter {
     /**
      * Gets the number of charge days based on days this object has counted previously
      * and the given price rules.
+     * 
+     * NOTE:  In production code, I would resist the idea of making the fairly
+     * generic DayCounter class dependent on the more domain-specific PriceRules.
+     * However, for this coding exercise, breaking the dependency felt a bit
+     * over-engineered, so I left it and figured I would leave this note here instead.
+     * A couple techniques for breaking the dependency (among others):
+     *    - have PriceRules implement an interface with the necessary getter methods;
+     *      then this method could take in any object that implements that interface;
+     *    - create a separate POJO that bundles these three booleans together; have
+     *      PriceRules return one and this method take one
+     * 
      * @param priceRules
      * @return integer number of charge days
      */
