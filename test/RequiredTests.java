@@ -1,6 +1,3 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.time.LocalDate;
 import org.junit.*;
 
@@ -8,7 +5,7 @@ public class RequiredTests {
     @Test
     public void RequiredTest_Scenario1() {
         // Check for correct behavior in this scenario.
-        IllegalArgumentException e = assertThrows(
+        IllegalArgumentException e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> new CheckoutRequest("JAKR", LocalDate.of(2015, 9, 3), 5, 101)
         );
