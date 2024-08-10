@@ -6,6 +6,7 @@ There is no UI for the project, but JUnit tests are included to demonstrate it w
 
 ## Tests
 The <b>RequiredTests.java</b> file contains the JUnit tests that demonstrate the code working in a variety of situations.
+These tests check for the correctness of the resulting values and also output the RentalAgreement data to the console.
 
 Further JUnit tests are provided that test each component of the solution.
 
@@ -30,4 +31,4 @@ These are the components of the architecture:
 
 5. JUnit tests
     * All classes have an associated JUnit test class
-    * Additionally, there is a RequiredTests test class that try out all the various required top-level testing scenarios
+    * <b>RequiredTests</b> - tries out all the various required top-level testing scenarios and also displays RentalAgreement data to the console
