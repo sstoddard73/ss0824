@@ -1,6 +1,8 @@
 import org.junit.*;
 import java.time.LocalDate;
 
+// This test file is lean only because in an ordinary project the tests in RequiredTests.java would also live here.
+
 public class RentalAgreementTest {
     @Test
     public void RentalAgreement_ConstructFromCheckoutRequest() {

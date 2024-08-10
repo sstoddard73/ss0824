@@ -17,7 +17,7 @@ class CheckoutRequest {
     public CheckoutRequest() {
         toolCode = "";
         checkoutDate = LocalDate.now();
-        numDays = 0;
+        numDays = 1;
         discountPercentage = 0;
     }
 
@@ -80,8 +80,8 @@ class CheckoutRequest {
      * @param numDays - must be a positive integer
      */
     public void setNumDays(int numDays) {
-        if (numDays < 1) {
-            throw new IllegalArgumentException("numDays cannot be negative");
+        if (numDays <= 0) {
+            throw new IllegalArgumentException("numDays must be at least 1");
         }
         this.numDays = numDays;
     }

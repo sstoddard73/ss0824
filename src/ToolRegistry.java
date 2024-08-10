@@ -6,9 +6,15 @@ import java.util.NoSuchElementException;
  * To use this registry, create a reference to the singleton, then call getToolByCode(toolCode)
  * to get a tool in it; a NoSuchElementException will be thrown if there is no such tool.
  * 
- * (NOTE:  In production code, you'd probably want some more methods in here, such as to
- * iterate through the list, or to do lookups on other fields.  Also the list would probably
- * be in a database rather than hardcoded here as an array.)
+ * Further Improvements:
+ * 
+ * In production code, you wouldn't want a hardcoded list.  Instead you'd use a database and probably a
+ * caching layer and replace this registry class with data models supporting full CRUD operations.
+ *
+ * When using a database, it would be natural and correct to use a numerical ID field as the primary key,
+ * rather than, as here, the tool code string.  Even without using a database but keeping this registry
+ * architecture, using an int or enum as the primary key would be an improvement, but for the purpose of
+ * this exercise, I chose to keep the architecture simple and more navigable and just use the tool code.
  */
 public enum ToolRegistry {
     INSTANCE;

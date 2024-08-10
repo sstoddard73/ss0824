@@ -8,9 +8,16 @@ import java.util.NoSuchElementException;
  * to get a PriceRules object for the specified type.  A NoSuchElementException will be thrown if
  * there is no such tool type.
  * 
- * (NOTE:  In production code, you'd probably want some more methods in here, such as to
- * iterate through the list, or to do lookups on other fields.  Also the list would probably
- * be in a database rather than hardcoded here as an array.)
+ * Further Improvements:
+ * 
+ * In production code, you wouldn't want a hardcoded list.  Instead you'd use a database and probably a
+ * caching layer and replace this registry class with data models supporting full CRUD operations.
+ *
+ * When using a database, it would be natural and correct to use a numerical ID field as the primary key,
+ * rather than, as here, the human-readable string name of the tool type.  Even without using a database
+ * but keeping this registry architecture, using an int or enum as the primary key would be an improvement,
+ * but for the purpose of this exercise, I chose to keep the architecture simple and more navigable and
+ * just use the type name string.
  */
 public enum PriceRegistry {
     INSTANCE;

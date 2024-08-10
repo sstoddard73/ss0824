@@ -16,7 +16,7 @@ public class CheckoutRequestTest {
 
         // Verify all the other fields.
         Assert.assertEquals("", cr.getToolCode());
-        Assert.assertEquals(0, cr.getNumDays());
+        Assert.assertEquals(1, cr.getNumDays());
         Assert.assertEquals(0, cr.getDiscountPercentage());
     }
 
@@ -52,26 +52,35 @@ public class CheckoutRequestTest {
 
     @Test
     public void CheckoutRequest_NumDays_CheckRange() {
+        IllegalArgumentException e;
+    
         // Make sure the constructor doesn't allow non-positive numDays.
-        Assert.assertThrows(
+        e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> new CheckoutRequest("TOOL", LocalDate.now(), 0, 15)
         );
-        Assert.assertThrows(
+        Assert.assertEquals("numDays must be at least 1", e.getMessage());
+
+        e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> new CheckoutRequest("TOOL", LocalDate.now(), -9, 15)
         );
+        Assert.assertEquals("numDays must be at least 1", e.getMessage());
 
         // Make sure the setter doesn't allow non-positive numDays.
         CheckoutRequest cr = new CheckoutRequest();
-        Assert.assertThrows(
+
+        e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> cr.setNumDays(0)
         );
-        Assert.assertThrows(
+        Assert.assertEquals("numDays must be at least 1", e.getMessage());
+
+        e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> cr.setNumDays(-11)
         );
+        Assert.assertEquals("numDays must be at least 1", e.getMessage());
     }
 
     @Test
@@ -84,24 +93,32 @@ public class CheckoutRequestTest {
         cr.setDiscountPercentage(100);
 
         // Make sure the constructor doesn't allow percentages outside the 0-100 range.
-        Assert.assertThrows(
+        IllegalArgumentException e;
+
+        e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> new CheckoutRequest("TOOL", LocalDate.now(), 2, -1)
         );
-        Assert.assertThrows(
+        Assert.assertEquals("discountPercentage must be between 0 and 100", e.getMessage());
+
+        e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> new CheckoutRequest("TOOL", LocalDate.now(), 2, 101)
         );
+        Assert.assertEquals("discountPercentage must be between 0 and 100", e.getMessage());
 
         // Make sure the setter doesn't allow non-positive numDays.
-        Assert.assertThrows(
+        e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> cr.setDiscountPercentage(-1)
         );
-        Assert.assertThrows(
+        Assert.assertEquals("discountPercentage must be between 0 and 100", e.getMessage());
+
+        e = Assert.assertThrows(
             IllegalArgumentException.class,
             () -> cr.setDiscountPercentage(101)
         );
+        Assert.assertEquals("discountPercentage must be between 0 and 100", e.getMessage());
     }
 
     @Test
